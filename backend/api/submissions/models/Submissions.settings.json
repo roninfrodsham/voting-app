@@ -1,0 +1,33 @@
+{
+  "connection": "default",
+  "collectionName": "submissions",
+  "info": {
+    "name": "submissions",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": [
+      "created_at",
+      "updated_at"
+    ],
+    "comment": ""
+  },
+  "attributes": {
+    "Title": {
+      "type": "string"
+    },
+    "categories": {
+      "collection": "category",
+      "via": "submissions"
+    },
+    "Agency": {
+      "type": "string"
+    },
+    "Images": {
+      "collection": "file",
+      "via": "related",
+      "plugin": "upload"
+    }
+  }
+}
