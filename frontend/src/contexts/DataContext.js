@@ -23,6 +23,10 @@ function DataContextProvider(props) {
     const localData = localStorage.getItem('ROOM_CODE');
     return localData ? JSON.parse(localData) : null;
   });
+  const [userVotes, setUserVotes] = useState(() => {
+    const localData = localStorage.getItem('USER_VOTES');
+    return localData ? JSON.parse(localData) : [];
+  });
 
   useEffect(() => {
     localStorage.setItem('CATEGORY', JSON.stringify(selectedCategory));
@@ -30,7 +34,15 @@ function DataContextProvider(props) {
     localStorage.setItem('SUBMISSION', JSON.stringify(selectedSubmission));
     localStorage.setItem('USER_ID', JSON.stringify(userId));
     localStorage.setItem('ROOM_CODE', JSON.stringify(roomCode));
-  }, [selectedCategory, selectedCategoryName, selectedSubmission, roomCode, userId]);
+    localStorage.setItem('USER_VOTES', JSON.stringify(userVotes));
+  }, [
+    selectedCategory,
+    selectedCategoryName,
+    selectedSubmission,
+    roomCode,
+    userId,
+    userVotes,
+  ]);
 
   const updateCategory = (category, categoryName) => {
     setSelectedCategory(category);
@@ -62,6 +74,8 @@ function DataContextProvider(props) {
         updateRoomCode,
         roomCode,
         userId,
+        userVotes,
+        setUserVotes,
       }}>
       {props.children}
     </DataContext.Provider>

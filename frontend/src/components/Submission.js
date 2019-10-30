@@ -24,9 +24,13 @@ const VoteContainer = styled.div`
 `;
 
 function Submission() {
-  const {selectedSubmission, selectedCategory, userId} = useContext(
-    DataContext,
-  );
+  const {
+    selectedSubmission,
+    selectedCategory,
+    userId,
+    userVotes,
+    setUserVotes,
+  } = useContext(DataContext);
   const {apiData, dispatch} = useContext(APIDataContext);
   const [showVotes, setShowVotes] = useState(true);
 
@@ -46,6 +50,10 @@ function Submission() {
       user: userId,
     };
     postResults(postData);
+    setUserVotes([
+      ...userVotes,
+      {category: selectedCategory, submission: selectedSubmission},
+    ]);
   };
 
   const postResults = async data => {
@@ -64,7 +72,7 @@ function Submission() {
           <Link to="/category" className="btn">
             Vote again in this category
           </Link>
-          <Link to="/" className="btn">
+          <Link to="/categories" className="btn">
             Choose a new category
           </Link>
         </div>

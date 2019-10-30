@@ -1,5 +1,6 @@
-import React, {useContext, useEffect} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
+import axios from 'axios';
 import styled from 'styled-components';
 
 import {DataContext} from '../contexts/DataContext';
@@ -31,25 +32,47 @@ const SubmissionContainer = styled.div`
 `;
 
 function Category() {
-  const {selectedCategory, selectedCategoryName, updateSubmission} = useContext(
-    DataContext,
-  );
+  const {
+    selectedCategory,
+    selectedCategoryName,
+    updateSubmission,
+    userVotes,
+  } = useContext(DataContext);
 
-  const {apiData, dispatch} = useContext(APIDataContext);
+  const [apiData, setApiData] = useState([]);
 
   useEffect(() => {
-    dispatch({
-      type: 'FETCH_INIT',
-      url: `${process.env.REACT_APP_API}/categories/${selectedCategory}`,
+    const fetchData = async () => {
+      const result = await axios(
+        `${process.env.REACT_APP_API}/categories/${selectedCategory}`,
+      );
+      filterData(result.data.submissions);
+    };
+    fetchData();
+  }, [selectedCategory]);
+
+  const filterData = categoryData => {
+    console.log(categoryData);
+    let localData = [];
+
+    categoryData.forEach(data => {
+      console.log('data.id: ', data.id);
+      console.log('userVotes: ', userVotes);
+      let obj = userVotes.find(obj => obj.submission == data.id);
+      if (obj == undefined) {
+        localData.push(data);
+      }
     });
-  }, [dispatch, selectedCategory]);
+    setApiData(localData);
+    console.log('localData: ', localData);
+  };
 
   return (
     <>
       <h3>Award for {selectedCategoryName}</h3>
       <h4>Select a submission:</h4>
-      {apiData.data.submissions &&
-        apiData.data.submissions.map(submission => (
+      {apiData.length > 0 &&
+        apiData.map(submission => (
           <SubmissionContainer key={submission.id}>
             <h4>{submission.Title}</h4>
             <h5>
