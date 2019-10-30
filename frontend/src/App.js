@@ -18,8 +18,10 @@ const GlobalStyle = createGlobalStyle`
 		color: #1d1d1b;
 	}
 
-	h1, h2, h3, h4- {
+	h1, h2, h3, h4 {
 		margin: 0;
+		text-transform: uppercase;
+		letter-spacing: 1px;
 	}
 
 	h2 {
@@ -33,6 +35,21 @@ const GlobalStyle = createGlobalStyle`
 
 	.container {
 		padding: 81px 20px 20px 20px;
+	}
+
+	.btn {
+		border: 1px solid #1d1d1b;
+		background-color: #1d1d1b;
+    margin-bottom: 20px;
+    padding: 15px 20px;
+		font-size: 13px;
+		letter-spacing: 1px;
+    text-align: center;
+    text-transform: uppercase;
+    text-decoration: none;
+		color: #fff;
+		box-shadow: 4px 4px rgba(0,0,0,0.3);
+
 	}
 
 `;

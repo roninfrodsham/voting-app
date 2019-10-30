@@ -1,4 +1,5 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
+import {Redirect} from 'react-router-dom';
 import uuid from 'uuid';
 import styled from 'styled-components';
 
@@ -22,11 +23,12 @@ const HomeContainer = styled.div`
 
   input {
     display: block;
-    margin: 0px auto;
+    margin: 0px auto 30px auto;
     padding: 10px;
     border: none;
     border-bottom: 1px solid #1d1d1b;
     color: #1d1d1b;
+    font-family: Montserrat, sans-serif;
     text-transform: uppercase;
     text-align: center;
     font-size: 20px;
@@ -38,31 +40,48 @@ const HomeContainer = styled.div`
   }
 
   button {
+    font-family: Montserrat, sans-serif;
     outline: 0;
   }
 `;
 
 function Home() {
-  const [inputText, setInputText] = useState('');
+  const {updateRoomCode} = useContext(DataContext);
+  const [room, setRoom] = useState('');
+  const [name, setName] = useState('');
+  const [redirectFlag, setRedirectFlag] = useState(false);
 
-  const updateInputText = event => {
-    setInputText(event.target.value);
-	};
-	
-	const updateRoomCode = () => {
-		
-	};
+  const updateRoom = event => {
+    setRoom(event.target.value.toUpperCase());
+  };
+  const updateName = event => {
+    setName(event.target.value.toUpperCase());
+  };
+
+  const handleSubmit = () => {
+    updateRoomCode(room);
+    setRedirectFlag(true);
+  };
 
   return (
     <HomeContainer>
+      {redirectFlag && <Redirect to="/categories" />}
       <div>
         <h1>{process.env.REACT_APP_NAME}</h1>
         <input
-          placeholder="Enter code..."
-          value={inputText}
-          onChange={updateInputText}
+          placeholder="Enter room code..."
+          value={room}
+          onChange={updateRoom}
         />
-        <button onClick={updateRoomCode}>Submit</button>
+        <input
+          placeholder="Enter your name..."
+          value={name}
+          onChange={updateName}
+        />
+
+        <button onClick={handleSubmit} className="btn">
+          Submit
+        </button>
       </div>
     </HomeContainer>
   );

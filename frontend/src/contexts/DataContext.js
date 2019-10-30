@@ -15,9 +15,12 @@ function DataContextProvider(props) {
     const localData = localStorage.getItem('SUBMISSION');
     return localData ? JSON.parse(localData) : null;
   });
-
   const [userId, setUserId] = useState(() => {
     const localData = localStorage.getItem('USER_ID');
+    return localData ? JSON.parse(localData) : null;
+  });
+  const [roomCode, setRoomCode] = useState(() => {
+    const localData = localStorage.getItem('ROOM_CODE');
     return localData ? JSON.parse(localData) : null;
   });
 
@@ -25,7 +28,9 @@ function DataContextProvider(props) {
     localStorage.setItem('CATEGORY', JSON.stringify(selectedCategory));
     localStorage.setItem('CATEGORY_NAME', JSON.stringify(selectedCategoryName));
     localStorage.setItem('SUBMISSION', JSON.stringify(selectedSubmission));
-  }, [selectedCategory, selectedCategoryName, selectedSubmission]);
+    localStorage.setItem('USER_ID', JSON.stringify(userId));
+    localStorage.setItem('ROOM_CODE', JSON.stringify(roomCode));
+  }, [selectedCategory, selectedCategoryName, selectedSubmission, roomCode]);
 
   const updateCategory = (category, categoryName) => {
     setSelectedCategory(category);
@@ -40,6 +45,10 @@ function DataContextProvider(props) {
     setUserId(id);
   };
 
+  const updateRoomCode = code => {
+    setRoomCode(code);
+  };
+
   return (
     <DataContext.Provider
       value={{
@@ -49,6 +58,7 @@ function DataContextProvider(props) {
         updateCategory,
         selectedSubmission,
         updateSubmission,
+        updateRoomCode,
       }}>
       {props.children}
     </DataContext.Provider>
