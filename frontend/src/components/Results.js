@@ -6,20 +6,11 @@ import {DataContext} from '../contexts/DataContext';
 import {APIDataContext} from '../contexts/APIDataContext';
 
 const CategoryBtn = styled.div`
+	margin-top: 20px;
+	
   a {
-    display: block;
-    border: 1px solid #1d1d1b;
-    margin-bottom: 20px;
-    padding: 15px 10px;
-    font-size: 13px;
-    text-align: center;
-    text-transform: uppercase;
-    text-decoration: none;
-    color: #1d1d1b;
-  }
-  a:active {
-    background-color: #1d1d1b;
-    color: #fff;
+		display: block;
+		background-color: #dc002e;
   }
 `;
 
@@ -36,12 +27,12 @@ function Results() {
 
   return (
     <>
-      <h3>Results</h3>
-      <h4>Choose a category</h4>
-      {apiData.data.length &&
+      <h3>Awards Results</h3>
+      <h4>Choose a category:</h4>
+					{apiData.data.length > 0 &&
         apiData.data.map(category => (
           <CategoryBtn key={category.id}>
-            <Link onClick={() => updateCategory(category.id, category.Title)} to="/result">
+            <Link onClick={() => updateCategory(category.id, category.Title)} to="/result" className="btn">
               {category.Title}
             </Link>
           </CategoryBtn>

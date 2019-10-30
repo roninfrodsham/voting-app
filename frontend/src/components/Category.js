@@ -6,7 +6,7 @@ import {DataContext} from '../contexts/DataContext';
 import {APIDataContext} from '../contexts/APIDataContext';
 
 const SubmissionContainer = styled.div`
-  margin-bottom: 20px;
+  margin-top: 20px;
   padding: 20px;
   background-color: #f2f2f2;
 
@@ -20,16 +20,13 @@ const SubmissionContainer = styled.div`
     margin-top: 10px;
   }
 
+  strong {
+    color: #dc002e;
+  }
+
   a {
     display: inline-block;
-    background-color: #1d1d1b;
-    padding: 10px 25px;
-    font-size: 13px;
-    text-align: center;
-    text-transform: uppercase;
-    text-decoration: none;
-    color: #fff;
-    letter-spacing: 1px;
+    margin: 20px 0 0 0;
   }
 `;
 
@@ -37,10 +34,10 @@ function Category() {
   const {selectedCategory, selectedCategoryName, updateSubmission} = useContext(
     DataContext,
   );
-				
-	const {apiData, dispatch} = useContext(APIDataContext);
-				
-	useEffect(() => {
+
+  const {apiData, dispatch} = useContext(APIDataContext);
+
+  useEffect(() => {
     dispatch({
       type: 'FETCH_INIT',
       url: `${process.env.REACT_APP_API}/categories/${selectedCategory}`,
@@ -49,14 +46,17 @@ function Category() {
 
   return (
     <>
-      <h3>{selectedCategoryName}</h3>
+      <h3>Award for {selectedCategoryName}</h3>
       <h4>Select a submission:</h4>
       {apiData.data.submissions &&
         apiData.data.submissions.map(submission => (
           <SubmissionContainer key={submission.id}>
             <h4>{submission.Title}</h4>
-            <h5>Agency - {submission.Agency}</h5>
+            <h5>
+              Agency - <strong>{submission.Agency}</strong>
+            </h5>
             <Link
+              className="btn"
               to="/submission"
               onClick={() => updateSubmission(submission.id)}>
               Vote

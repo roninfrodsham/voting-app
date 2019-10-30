@@ -30,7 +30,7 @@ function DataContextProvider(props) {
     localStorage.setItem('SUBMISSION', JSON.stringify(selectedSubmission));
     localStorage.setItem('USER_ID', JSON.stringify(userId));
     localStorage.setItem('ROOM_CODE', JSON.stringify(roomCode));
-  }, [selectedCategory, selectedCategoryName, selectedSubmission, roomCode]);
+  }, [selectedCategory, selectedCategoryName, selectedSubmission, roomCode, userId]);
 
   const updateCategory = (category, categoryName) => {
     setSelectedCategory(category);
@@ -46,6 +46,7 @@ function DataContextProvider(props) {
   };
 
   const updateRoomCode = code => {
+    console.log('code: ', code);
     setRoomCode(code);
   };
 
@@ -59,6 +60,8 @@ function DataContextProvider(props) {
         selectedSubmission,
         updateSubmission,
         updateRoomCode,
+        roomCode,
+        userId,
       }}>
       {props.children}
     </DataContext.Provider>

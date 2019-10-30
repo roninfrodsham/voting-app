@@ -17,10 +17,6 @@
     "Title": {
       "type": "string"
     },
-    "categories": {
-      "collection": "category",
-      "via": "submissions"
-    },
     "Agency": {
       "type": "string"
     },
@@ -28,6 +24,10 @@
       "collection": "file",
       "via": "related",
       "plugin": "upload"
+    },
+    "categories": {
+      "collection": "category",
+      "via": "submissions"
     }
   }
 }

@@ -11,13 +11,16 @@ import vote1 from '../assets/damaging.svg';
 
 const Vote = styled.div`
   display: flex;
-  height: 60px;
   align-items: center;
-  margin-bottom: 15px;
-  font-weight: bold;
+	margin-bottom: 15px;
+	padding: 10px;
+	font-weight: bold;
+	background-color: #f2f2f2;
+	overflow: hidden;
+	
   img {
     width: 60px;
-    margin-right: 20px;
+    margin: 0 20px 0 0;
   }
   span {
     margin-right: 10px;

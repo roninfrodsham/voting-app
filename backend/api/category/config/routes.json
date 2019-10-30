@@ -47,6 +47,14 @@
       "config": {
         "policies": []
       }
+    },
+		{
+      "method": "GET",
+      "path": "/categories/room/:room",
+      "handler": "Category.findByCategoryAndRoom",
+      "config": {
+        "policies": []
+      }
     }
   ]
 }

@@ -1,9 +1,20 @@
 import React, {useContext, useEffect, useState} from 'react';
+import {Link} from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
 import {Bar} from 'react-chartjs-2';
 
 import {DataContext} from '../contexts/DataContext';
+
+const ResultContainer = styled.div`
+	height: 300px;
+
+	a {	
+		display: block;
+		margin-top: 30px;
+		background-color: #dc002e;
+	}
+`;
 
 function Result() {
   const {selectedCategory, selectedCategoryName} = useContext(DataContext);
@@ -85,7 +96,7 @@ function Result() {
   };
 
   return (
-    <>
+    <ResultContainer>
       <h3>Results for {selectedCategoryName}</h3>
       {!dataFlag && <div>No results for this category yet...</div>}
       {dataFlag && (
@@ -107,8 +118,9 @@ function Result() {
             },
           }}
         />
-      )}
-    </>
+			)}
+								<Link to='/results' className='btn'>Back to Results</Link>
+    </ResultContainer>
   );
 }
 

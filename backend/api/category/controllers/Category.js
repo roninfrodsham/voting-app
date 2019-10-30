@@ -1,8 +1,16 @@
-'use strict';
+"use strict";
 
-/**
- * Read the documentation (https://strapi.io/documentation/3.0.0-beta.x/guides/controllers.html#core-controllers)
- * to customize this controller
- */
-
-module.exports = {};
+module.exports = {
+  findByCategoryAndRoom: async ctx => {
+    const urlArray = ctx.request.url.split("/");
+    const room = urlArray[3];
+    const result = await strapi
+      .query("category")
+      .model.query(qb => {
+        qb.where("room", room);
+      })
+      .fetchAll();
+    const fields = result.toJSON();
+    ctx.send(fields);
+  }
+};

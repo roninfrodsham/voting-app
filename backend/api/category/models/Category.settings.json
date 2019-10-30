@@ -7,7 +7,10 @@
   },
   "options": {
     "increments": true,
-    "timestamps": true,
+    "timestamps": [
+      "created_at",
+      "updated_at"
+    ],
     "comment": ""
   },
   "attributes": {
@@ -18,8 +21,21 @@
     },
     "submissions": {
       "collection": "submissions",
-      "dominant": true,
-      "via": "categories"
+      "via": "categories",
+      "dominant": true
+    },
+    "room": {
+      "enum": [
+        "MRA",
+        "MRE",
+        "MRF",
+        "COOPER",
+        "MR1",
+        "MR2",
+        "MR3",
+        "MR4"
+      ],
+      "type": "enumeration"
     }
   }
 }

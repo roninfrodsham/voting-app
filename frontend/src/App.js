@@ -18,7 +18,7 @@ const GlobalStyle = createGlobalStyle`
 		color: #1d1d1b;
 	}
 
-	h1, h2, h3, h4 {
+	h1, h2, h3, h4, h5 {
 		margin: 0;
 		text-transform: uppercase;
 		letter-spacing: 1px;
@@ -33,12 +33,15 @@ const GlobalStyle = createGlobalStyle`
 		color: #1d1d1b;
 	}
 
+	h3 {
+		margin-bottom: 10px;
+	}
+
 	.container {
 		padding: 81px 20px 20px 20px;
 	}
 
 	.btn {
-		border: 1px solid #1d1d1b;
 		background-color: #1d1d1b;
     margin-bottom: 20px;
     padding: 15px 20px;

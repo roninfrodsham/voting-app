@@ -46,7 +46,7 @@ const HomeContainer = styled.div`
 `;
 
 function Home() {
-  const {updateRoomCode} = useContext(DataContext);
+  const {updateRoomCode, updateUserId} = useContext(DataContext);
   const [room, setRoom] = useState('');
   const [name, setName] = useState('');
   const [redirectFlag, setRedirectFlag] = useState(false);
@@ -60,6 +60,7 @@ function Home() {
 
   const handleSubmit = () => {
     updateRoomCode(room);
+    updateUserId(name);
     setRedirectFlag(true);
   };
 

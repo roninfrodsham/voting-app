@@ -13,24 +13,20 @@ const VoteContainer = styled.div`
   }
   h4 {
     margin-top: 0;
+    margin-bottom: 20px;
+  }
+  h5 {
+    margin-bottom: 20px;
   }
   a {
     display: block;
-		border: 1px solid #1d1d1b;
-		background-color: #1d1d1b; 
-    margin-bottom: 20px;
-    padding: 10px 25px;
-		font-size: 13px;
-		letter-spacing: 1px;
-    text-align: center;
-    text-transform: uppercase;
-    text-decoration: none;
-    color: #1d1d1b;
   }
 `;
 
 function Submission() {
-  const {selectedSubmission, selectedCategory} = useContext(DataContext);
+  const {selectedSubmission, selectedCategory, userId} = useContext(
+    DataContext,
+  );
   const {apiData, dispatch} = useContext(APIDataContext);
   const [showVotes, setShowVotes] = useState(true);
 
@@ -47,6 +43,7 @@ function Submission() {
       Score: score,
       category: selectedCategory,
       submissions: selectedSubmission,
+      user: userId,
     };
     postResults(postData);
   };
@@ -57,14 +54,19 @@ function Submission() {
 
   return (
     <VoteContainer>
-      <h3>{apiData.data.Title}</h3>
-      <h4>Agency: {apiData.data.Agency}</h4>
+      <h4>
+        {apiData.data.Title} - {apiData.data.Agency}
+      </h4>
       {showVotes && <Votes handleVote={handleVote} />}
       {showVotes === false && (
         <div>
           <h5>Your voted has been submitted...</h5>
-          <Link to="/category">Vote again in this category</Link>
-          <Link to="/">Choose a new category</Link>
+          <Link to="/category" className="btn">
+            Vote again in this category
+          </Link>
+          <Link to="/" className="btn">
+            Choose a new category
+          </Link>
         </div>
       )}
     </VoteContainer>
