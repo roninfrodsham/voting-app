@@ -31,6 +31,10 @@ const SubmissionContainer = styled.div`
   }
 `;
 
+const CompleteContainer = styled.div`
+	
+`;
+
 function Category() {
   const {
     selectedCategory,
@@ -85,7 +89,8 @@ function Category() {
               Vote
             </Link>
           </SubmissionContainer>
-        ))}
+				))}
+					{apiData.length == 0 && <div>Votes cast</div>}
     </>
   );
 }
