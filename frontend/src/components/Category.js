@@ -9,7 +9,9 @@ import {APIDataContext} from '../contexts/APIDataContext';
 const SubmissionContainer = styled.div`
   margin-top: 20px;
   padding: 20px;
-  background-color: #f2f2f2;
+	background-color: #f2f2f2;
+	position: relative;
+	overflow: hidden;
 
   h4 {
     margin: 0;
@@ -28,7 +30,15 @@ const SubmissionContainer = styled.div`
   a {
     display: inline-block;
     margin: 20px 0 0 0;
-  }
+	}
+
+	.score {
+		position: absolute;
+		top: 0;
+		right: 10px;
+		font-size: 70px;
+		opacity: 0.3;
+	}
 `;
 
 const CompleteContainer = styled.div`
@@ -62,11 +72,17 @@ function Category() {
     categoryData.forEach(data => {
       console.log('data.id: ', data.id);
       console.log('userVotes: ', userVotes);
-      let obj = userVotes.find(obj => obj.submission == data.id);
-      if (obj == undefined) {
-        localData.push(data);
-      }
-    });
+						let obj = userVotes.find(obj => obj.submission == data.id);
+						if (obj == undefined) {
+							data.voted = false;
+							localData.push(data);
+						} else {
+										data.voted = true;
+										data.score = obj.score;
+							localData.push(data);
+						}
+		});
+					console.log('localData: ', localData);
     setApiData(localData);
     console.log('localData: ', localData);
   };
@@ -79,15 +95,17 @@ function Category() {
         apiData.map(submission => (
           <SubmissionContainer key={submission.id}>
             <h4>{submission.Title}</h4>
-            <h5>
-              Agency - <strong>{submission.Agency}</strong>
-            </h5>
+										<h5>              Agency - <strong>{submission.Agency}</strong>
+														</h5>
+																		{submission.voted && <div className='score'>{submission.score}</div>}
+						{submission.voted === false && 
             <Link
-              className="btn"
-              to="/submission"
+              className='btn'
+              to='/submission'
               onClick={() => updateSubmission(submission.id)}>
               Vote
-            </Link>
+										</Link>
+						}
           </SubmissionContainer>
 				))}
 					{apiData.length == 0 && <div>Votes cast</div>}

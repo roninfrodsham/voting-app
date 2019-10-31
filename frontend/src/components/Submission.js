@@ -52,7 +52,7 @@ function Submission() {
     postResults(postData);
     setUserVotes([
       ...userVotes,
-      {category: selectedCategory, submission: selectedSubmission},
+      {category: selectedCategory, submission: selectedSubmission, score: score},
     ]);
   };
 
