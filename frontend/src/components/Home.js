@@ -1,6 +1,5 @@
 import React, {useState, useContext} from 'react';
 import {Redirect} from 'react-router-dom';
-import uuid from 'uuid';
 import styled from 'styled-components';
 
 import {DataContext} from '../contexts/DataContext';
@@ -41,12 +40,13 @@ const HomeContainer = styled.div`
 
   button {
     font-family: Montserrat, sans-serif;
-    outline: 0;
+		outline: 0;
+		border: 0;
   }
 `;
 
 function Home() {
-  const {updateRoomCode, updateUserId} = useContext(DataContext);
+  const {updateRoomCode, updateUserId, userId} = useContext(DataContext);
   const [room, setRoom] = useState('');
   const [name, setName] = useState('');
   const [redirectFlag, setRedirectFlag] = useState(false);
@@ -66,7 +66,8 @@ function Home() {
 
   return (
     <HomeContainer>
-      {redirectFlag && <Redirect to="/categories" />}
+						{redirectFlag && <Redirect to="/categories" />}
+										{userId && <Redirect to="/categories" />}
       <div>
         <h1>{process.env.REACT_APP_NAME}</h1>
         <input
